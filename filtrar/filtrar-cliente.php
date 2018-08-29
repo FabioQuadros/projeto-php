@@ -3,7 +3,7 @@ if(isset($_SESSION['privateUser'])){
   include_once '../modelo/usuario.class.php';
   $u = unserialize($_SESSION['privateUser']);
 
-  if($u->tipo != 'Profissional'){
+  if($u->tipo != 'Adm' && 'Profissional'){
     header("location:../index.php");
   }
 }else{
@@ -73,19 +73,25 @@ if(isset($_POST['filtrar'])){
             <?php if (isset($_SESSION['privateUser'])): ?>
               <?php include_once '../modelo/usuario.class.php'; ?>
               <?php $u = unserialize($_SESSION['privateUser']); ?>
-
+              <?php if ($u->tipo == 'Adm'): ?>
+                <li class="nav-item"><a class="nav-link" href="../index.php">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="../cadastrar/cadastrar-cliente.php">Cadastrar</a></li>
+                <li class="nav-item"><a class="nav-link" href="../consultar/consultar-cliente.php">Consultar</a></li>
+                <li class="nav-item active"><a class="nav-link" href="../filtrar/filtrar-cliente.php">Filtrar</a></li>
               <?php if ($u->tipo == 'Profissional'): ?>
-                <li><a href="../index.php">Home</a></li>
-                <li><a href="../cadastrar/cadastrar-cliente.php">Cadastrar</a></li>
-                <li><a href="../consultar/consultar-cliente.php">Consultar</a></li>
-                <li><a href="../filtrar/filtrar-cliente.php">Filtrar</a></li>
+                <li class="nav-item"><a class="nav-link" href="../index.php">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="../cadastrar/cadastrar-cliente.php">Cadastrar</a></li>
+                <li class="nav-item "><a class="nav-link" href="../consultar/consultar-cliente.php">Consultar</a></li>
+                <li class="nav-item active"><a class="nav-link" href="../filtrar/filtrar-cliente.php">Filtrar</a></li>
                 <?php if($u->tipo == 'Cliente'): ?>
-                  <li><a href="../index.php">Home</a></li>
+                  <li class="nav-item"><a class="nav-link" href="../index.php">Home</a></li>
+                  <li class="nav-item active"><a class="nav-link" href="../filtrar/filtrar-cliente.php">Filtrar</a></li>
                 <?php endif; ?>
+              <?php endif; ?>
+            <?php else: ?>
+              <li class="active"><a class="nav-link" href="index.php">Home</a></li>
             <?php endif; ?>
-          <?php else: ?>
-            <li><a href="../index.php">Home</a></li>
-          <?php endif; ?>
+            <?php endif; ?>
           </ul>
         </div>
       </nav>

@@ -1,29 +1,26 @@
 <?php session_start();ob_start();
-// testando se existe usuario
 if(isset($_SESSION['privateUser'])){
   include_once '../modelo/usuario.class.php';
   $u = unserialize($_SESSION['privateUser']);
 
-  if($u->tipo != 'Profissional'){
+  if($u->tipo != 'Adm' && 'Profissional'){
     header("location:../index.php");
   }
 }else{
   header("location:../index.php");
 }
-
-// incluindo classes
 include '../dao/FuncionarioDAO.class.php';
 include '../modelo/funcionario.class.php';
 
 if(isset($_POST['filtrar'])){
 
   $pesq = "";
-  $pesq = $_POST['txtpesquisa']; //O que o user digitou
+  $pesq = $_POST['txtpesquisa'];
   $query = "";
 
   if($pesq != ""){
 
-    $filtro = $_POST['rdfiltro']; //RadioButton
+    $filtro = $_POST['rdfiltro'];
 
     if($filtro == 'idFuncionario'){
       $query = "where idFuncionario = ".$pesq;
@@ -40,7 +37,7 @@ if(isset($_POST['filtrar'])){
     }else{
       $query = "";
     }
-  }//fecha if isset rdfiltro
+  }
 
   $funDAO = new FuncionarioDAO();
   $array = $funDAO->filtrar($query);
@@ -73,19 +70,25 @@ if(isset($_POST['filtrar'])){
             <?php if (isset($_SESSION['privateUser'])): ?>
               <?php include_once '../modelo/usuario.class.php'; ?>
               <?php $u = unserialize($_SESSION['privateUser']); ?>
-
+              <?php if ($u->tipo == 'Adm'): ?>
+                <li class="nav-item"><a class="nav-link" href="../index.php">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="../cadastrar/cadastrar-funcionario.php">Cadastrar</a></li>
+                <li class="nav-item"><a class="nav-link" href="../consultar/consultar-funcionario.php">Consultar</a></li>
+                <li class="nav-item active"><a class="nav-link" href="../filtrar/filtrar-funcionario.php">Filtrar</a></li>
               <?php if ($u->tipo == 'Profissional'): ?>
-                <li><a href="../index.php">Home</a></li>
-                <li><a href="../cadastrar/cadastrar-funcionario.php">Cadastro</a></li>
-                <li><a href="../consultar/consultar-funcionario.php">Consulta</a></li>
-                <li><a href="../filtrar/filtrar-funcionario.php">filtrar</a></li>
+                <li class="nav-item"><a class="nav-link" href="../index.php">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="../cadastrar/cadastrar-funcionario.php">Cadastrar</a></li>
+                <li class="nav-item "><a class="nav-link" href="../consultar/consultar-funcionario.php">Consultar</a></li>
+                <li class="nav-item active"><a class="nav-link" href="../filtrar/filtrar-funcionario.php">Filtrar</a></li>
                 <?php if($u->tipo == 'Cliente'): ?>
-                  <li><a href="../index.php">Home</a></li>
+                  <li class="nav-item"><a class="nav-link" href="../index.php">Home</a></li>
+                  <li class="nav-item active"><a class="nav-link" href="../filtrar/filtrar-funcionario.php">Filtrar</a></li>
                 <?php endif; ?>
+              <?php endif; ?>
+            <?php else: ?>
+              <li class="active"><a class="nav-link" href="index.php">Home</a></li>
             <?php endif; ?>
-          <?php else: ?>
-            <li><a href="../index.php">Home</a></li>
-          <?php endif; ?>
+            <?php endif; ?>
           </ul>
         </div>
       </nav>

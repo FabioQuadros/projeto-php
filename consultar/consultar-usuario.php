@@ -1,7 +1,16 @@
 <?php session_start(); ob_start();
+if(isset($_SESSION['privateUser'])){
+  include_once '../modelo/usuario.class.php';
+  $u = unserialize($_SESSION['privateUser']);
 
+  if($u->tipo != 'Adm'){
+    header("location:../index.php");
+  }
+}else{
+  header("location:../index.php");
+}
 include '../dao/usuariodao.class.php';
-include '../modelo/usuario.class.php';
+include_once '../modelo/usuario.class.php';
 
 $uDAO = new UsuarioDAO();
 $array = $uDAO->buscarUsuario();
@@ -36,22 +45,15 @@ if(isset($_GET['id'])){
             <?php if (isset($_SESSION['privateUser'])): ?>
               <?php include_once '../modelo/usuario.class.php'; ?>
               <?php $u = unserialize($_SESSION['privateUser']); ?>
-              <?php if ($u->tipo == 'Profissional'): ?>
-                <li><a href="../index.php">Home</a></li>
-                <li><a href="../cadastrar/cadastrar-usuario.php">Cadastrar</a></li>
-                <li><a href="consultar-usuario.php">Consultar</a></li>
-                <li><a href="../filtrar/filtrar-usuario.php">Filtrar</a></li>
-                <?php if ($u->tipo == 'Profissional'): ?>
-                  <li><a href="../index.php">Home</a></li>
-                  <li><a href="../filtrar/filtrar-usuario.php">Filtrar</a></li>
-                  <?php if($u->tipo == 'Cliente'): ?>
-                    <li><a href="../index.php">Home</a></li>
-                  <?php endif; ?>
-              <?php endif; ?>
+              <?php if ($u->tipo == 'Adm'): ?>
+                <li class="nav-item"><a class="nav-link" href="../index.php">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="../cadastrar/cadastrar-usuario.php">Cadastrar</a></li>
+                <li class="nav-item  active"><a class="nav-link" href="../consultar/consultar-usuario.php">Consultar</a></li>
+                <li class="nav-item disabled"><a class="nav-link" href="../filtrar/filtrar-usuario.php">Filtrar</a></li>
             <?php else: ?>
-              <li><a href="../index.php">Home</a></li>
+              <li class="active"><a class="nav-link" href="index.php">Home</a></li>
             <?php endif; ?>
-          <?php endif; ?>
+            <?php endif; ?>
           </ul>
         </div>
       </nav>

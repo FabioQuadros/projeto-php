@@ -1,8 +1,6 @@
 <?php session_start();ob_start();
-
-
-include '../modelo/usuario.class.php';
-include '../dao/usuariodao.class.php';
+include_once '../modelo/usuario.class.php';
+include_once '../dao/usuariodao.class.php';
 
 if (isset($_GET['id'])) {
   $userDAO = new UsuarioDAO();
@@ -14,11 +12,11 @@ if (isset($_GET['id'])) {
 
 if(isset($_POST['alterar'])){
   include_once '../modelo/usuario.class.php';
-  include '../dao/usuariodao.class.php';
+  include_once '../dao/usuariodao.class.php';
   include '../util/seguranca.class.php';
 
   $idUsuario = $_POST['txtidUsuario'];
-  $login = Padronizacao::padronizarMaiMin($_POST['txtlogin']);
+  $login = $_POST['txtlogin'];
   $senha = Seguranca::criptografar($_POST['txtsenha']);
   $tipo = $_POST['seltipo'];
 
@@ -29,7 +27,7 @@ if(isset($_POST['alterar'])){
   $u->tipo = $tipo;
 
   $uDAO = new UsuarioDAO();
-  $uDAO->alterUsuario($u);
+  $uDAO->alterarUsuario($u);
 
   header("location:../index.php");
 }

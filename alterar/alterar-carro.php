@@ -64,7 +64,7 @@ if(isset($_POST['alterar'])){
               <a class="navbar-brand" href="#">Sistema</a>
             </div>
             <ul class="nav navbar-nav">
-				        <li><a href="index2.php">Home</a></li>
+				        <li><a href="index.php">Home</a></li>
                 <li><a href="cadastro-carro.php">Cadastro</a></li>
                 <li><a href="consulta-carro.php">Consulta</a></li>
                 <li><a href="filtrar-carro.php">filtrar</a></li>

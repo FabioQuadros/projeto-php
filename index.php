@@ -54,7 +54,7 @@ if(isset($_POST['entrar'])){
             </div>
           </form>
         </h1>
-        <?php else: ?>
+      <?php else: ?>
           <h1 class="jumbotron">Seja bem vindo!</h1>
     <?php endif; ?>
 
@@ -68,22 +68,22 @@ if(isset($_POST['entrar'])){
             <?php include_once 'modelo/usuario.class.php'; ?>
             <?php $u = unserialize($_SESSION['privateUser']); ?>
             <?php if ($u->tipo == 'Adm'): ?>
-              <li><a href="../index.php">Home</a></li>
-              <li><a href="../cadastrar/cadastrar-usuario.php">Cadastrar</a></li>
-              <li><a href="consultar-usuario.php">Consultar</a></li>
-              <li><a href="../filtrar/filtrar-usuario.php">Filtrar</a></li>
+              <li class="nav-item active"><a class="nav-link" href="index.php">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="cadastrar/cadastrar-carro.php">Cadastrar</a></li>
+              <li class="nav-item"><a class="nav-link" href="consultar/consultar-carro.php">Consultar</a></li>
+              <li class="nav-item"><a class="nav-link" href="filtrar/filtrar-carro.php">Filtrar</a></li>
             <?php if ($u->tipo == 'Profissional'): ?>
-              <li><a href="index.php">Home</a></li>
-              <li><a href="cadastrar/cadastrar-carro.php">Cadastrar</a></li>
-              <li><a href="consultar/consultar-carro.php">Consultar</a></li>
-              <li><a href="filtrar/filtrar-carro.php">Filtrar</a></li>
+              <li class="nav-item active"><a class="nav-link" href="index.php">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="cadastrar/cadastrar-carro.php">Cadastrar</a></li>
+              <li class="nav-item"><a class="nav-link" href="consultar/consultar-carro.php">Consultar</a></li>
+              <li class="nav-item"><a class="nav-link" href="filtrar/filtrar-carro.php">Filtrar</a></li>
               <?php if($u->tipo == 'Cliente'): ?>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="cadastrar/cadastrar-carro.php">Cadastro</a></li>
+                <li class="nav-item active"><a class="nav-link" href="index.php">Home</a></li>
+                <liclass="nav-item"><a class="nav-link" href="filtrar/filtrar-carro.php">Filtrar</a></li>
               <?php endif; ?>
             <?php endif; ?>
           <?php else: ?>
-            <li><a href="index.php">Home</a></li>
+            <li class="active"><a class="nav-link" href="index.php">Home</a></li>
           <?php endif; ?>
           <?php endif; ?>
         </ul>
